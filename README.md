@@ -75,9 +75,9 @@ And update the Index view to display the welcome message.
     ViewData["Title"] = "Home Page";
 }
 
-&lt;div class="text-center"&gt;
-    &lt;h1 class="display-4"&gt;@Model.Message&lt;/h1&gt;
-&lt;/div&gt;
+<div class="text-center">
+    <h1 class="display-4">@Model.Message</h1>
+</div>
 ```
 
 ## Run the page
