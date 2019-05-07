@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Items", "Items", "{7B4F6AB9-DB86-46A8-9ECE-A7FD58035922}"
 	ProjectSection(SolutionItems) = preProject
 		images\home-1.png = images\home-1.png
+		images\home-2.png = images\home-2.png
 		README.md = README.md
 	EndProjectSection
 EndProject
