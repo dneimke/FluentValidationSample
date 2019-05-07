@@ -85,10 +85,9 @@ And update the Index view to display the welcome message.
 You should now be able to run the web application using F5 and, by default you should be presented with 
 the following page:
 
-[[https://github.com/dneimke/FluentValidationSample/blob/master/images/home-1.png|alt=HomePage]]
+![Default Home Page](https://github.com/dneimke/FluentValidationSample/blob/master/images/home-1.png)
 
 Now change the URL to include a name by adding ```?name=Fred Flinstone``` to the end of the URL path and 
 press ENTER.  You should now be presented with the following page:
 
-[[https://github.com/dneimke/FluentValidationSample/blob/master/images/home-2.png|alt=HomePage]]
-
+![Home Page with name](https://github.com/dneimke/FluentValidationSample/blob/master/images/home-2.png)
