@@ -6,3 +6,8 @@
 <div class="text-center">
     <h1 class="display-4">@Model.Message</h1>
 </div>
+
+<form method="post" asp-controller="Home" asp-action="PostName">
+    <input type="text" name="Name" />
+    <input type="submit" />
+</form>

@@ -16,13 +16,22 @@ namespace ValidationSample.Controllers
             _mediator = mediator;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index(WelcomeMessage.Request request)
         {
             var result = await _mediator.Send(request);
             return View(result);
         }
 
-        
+
+        [HttpPost]
+        public async Task<IActionResult> PostName(ProvideName.Request request)
+        {
+            var result = await _mediator.Send(request);
+            return RedirectToAction("Index", new { result.Name }) ;
+        }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
