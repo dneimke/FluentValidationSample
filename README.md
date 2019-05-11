@@ -152,8 +152,7 @@ Name value using the FluentValidation assembly.
 
 * Install-Package FluentValidation
 
-Unlike MediatR, FluentValidation doesn't have an out-of-the-box way to register validators.  We will use [Scrutor](https://github.com/khellang/Scrutor) 
-to scan our assembly and register validators.  We will also use Scrutor's decorator capabilities to match validators with MediatR handlers.
+We will use [Scrutor's](https://github.com/khellang/Scrutor) decorator capabilities to match validators with MediatR handlers.
 
 * Install-Package Scrutor
 
@@ -169,7 +168,7 @@ services.Scan(s => s
 ```
 
 In addition to the Scan extension, Scrutor provides us with a Decorate method that can be used to decorate already registered services.
-We will use this to wrap our MediatR handlers with any validators that have the same type signature.  First, create a Decorator class like so
+Create a simple Decorator class to wrap validators and request handlers with the same generic type signatures.
 
 ```csharp
 namespace ValidationSample.Infrastructure
@@ -201,7 +200,7 @@ namespace ValidationSample.Infrastructure
 }
 ```
 
-Finally, register the decorator class with Scrutor in Startup.cs
+Then register the decorator class with Scrutor in Startup.cs
 
 ```csharp
 services.Decorate(typeof(IRequestHandler<,>), typeof(ValidationDecorator<,>));
@@ -209,10 +208,10 @@ services.Decorate(typeof(IRequestHandler<,>), typeof(ValidationDecorator<,>));
 
 ## Create a Validator 
 
-Add the following validator class inside of the ProvideName static class
+Create the following validator class to validate ProvideName requests
 
 ```csharp
-public class Validator : AbstractValidator<Request>
+public class Validator : AbstractValidator<ProvideNameRequest>
 {
     public Validator()
     {
@@ -236,4 +235,4 @@ the following error page:
 
 ## Handle Errors
 
-
+* Install-Package FluentValidation.AspNetCore

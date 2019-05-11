@@ -1,4 +1,4 @@
-﻿@model  ValidationSample.Features.Home.WelcomeMessage.ViewModel;
+﻿@model ValidationSample.Features.Home.WelcomeMessage.ViewModel;
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -7,7 +7,18 @@
     <h1 class="display-4">@Model.Message</h1>
 </div>
 
-<form method="post" asp-controller="Home" asp-action="PostName">
-    <input type="text" name="Name" />
-    <input type="submit" />
+
+
+<form method="post" asp-controller="Home" asp-action="Index">
+    <div class="form-group">
+        <label asp-for="Name" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Submit" />
+    </div>
 </form>
+

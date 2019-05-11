@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using ValidationSample.Features.Home;
@@ -25,17 +26,16 @@ namespace ValidationSample.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> PostName(ProvideName.Request request)
+        public async Task<IActionResult> Index(ProvideName.ProvideNameRequest request)
         {
+            if(!ModelState.IsValid)
+            {
+                var tmp = await _mediator.Send(new WelcomeMessage.Request());
+                return View(tmp);
+            }
+
             var result = await _mediator.Send(request);
-            return RedirectToAction("Index", new { result.Name }) ;
-        }
-
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return RedirectToAction("Index", new WelcomeMessage.Request { Name = result.Name }) ;
         }
     }
 }

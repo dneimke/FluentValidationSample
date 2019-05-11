@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+﻿using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using ValidationSample.Infrastructure.Validation;
 
 namespace ValidationSample
 {
@@ -30,32 +29,23 @@ namespace ValidationSample
 
             services.AddMediatR(Assembly.GetAssembly(typeof(Program)));
 
-            services.Scan(s => s
-                .FromAssemblyOf<Program>()
-                .AddClasses(c => c.AssignableTo(typeof(IValidator<>)))
-                .AsImplementedInterfaces()
-                .WithTransientLifetime()
-            );
+            //services.Scan(s => s
+            //    .FromAssemblyOf<Program>()
+            //    .AddClasses(c => c.AssignableTo(typeof(IValidator<>)))
+            //    .AsImplementedInterfaces()
+            //    .WithTransientLifetime()
+            //);
 
-            services.Decorate(typeof(IRequestHandler<,>), typeof(ValidationDecorator<,>));
+            // services.Decorate(typeof(IRequestHandler<,>), typeof(ValidationDecorator<,>));
 
-            services.AddMvc(options => {
-                options.Filters.Add(new ValidationExceptionFilter());
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Program>())
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
-            }
-
+            app.UseDeveloperExceptionPage();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

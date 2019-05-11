@@ -7,7 +7,7 @@ namespace ValidationSample.Features.Home
 {
     public static class ProvideName
     {
-        public class Request : IRequest<ViewModel>
+        public class ProvideNameRequest : IRequest<ViewModel>
         {
             public string Name { get; set; }
         }
@@ -17,7 +17,7 @@ namespace ValidationSample.Features.Home
             public string Name { get; set; }
         }
 
-        public class Validator : AbstractValidator<Request>
+        public class Validator : AbstractValidator<ProvideNameRequest>
         {
             public Validator()
             {
@@ -31,9 +31,9 @@ namespace ValidationSample.Features.Home
             }
         }
 
-        public class RequestHandler : IRequestHandler<Request, ViewModel>
+        public class RequestHandler : IRequestHandler<ProvideNameRequest, ViewModel>
         {
-            public Task<ViewModel> Handle(Request request, CancellationToken cancellationToken)
+            public Task<ViewModel> Handle(ProvideNameRequest request, CancellationToken cancellationToken)
             {
                 return Task.FromResult(new ViewModel { Name = request.Name });
             }

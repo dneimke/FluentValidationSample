@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,6 +14,7 @@ namespace ValidationSample.Features.Home
 
         public class ViewModel
         {
+            public string Name { get; set; }
             public string Message { get; set; }
         }
 
@@ -21,7 +23,7 @@ namespace ValidationSample.Features.Home
             public Task<ViewModel> Handle(Request request, CancellationToken cancellationToken)
             {
                 var message = string.IsNullOrEmpty(request.Name) ? "Who are you?" : $"Hello {request.Name}";
-                return Task.FromResult(new ViewModel { Message = message });
+                return Task.FromResult(new ViewModel { Name = request.Name, Message = message });
             }
         }
     }
